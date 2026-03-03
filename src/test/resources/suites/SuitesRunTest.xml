@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<!--suppress ALL -->
+<suite name="SuiteRunByMethod" verbose="1">
+    <test name="Run POM with Parallel" parallel="methods">
+        <classes>
+            <class name="Bai26_POMWithParallel.testcases.LoginTest"/>
+        </classes>
+    </test>
+</suite>
