@@ -1,0 +1,19 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<!--suppress ALL -->
+<suite name="SuiteRunByMethod" verbose="1">
+    <test name="Run with Parallel login" parallel="methods">
+        <parameter name="browser" value="chrome"/>
+
+        <classes>
+            <class name="Bai26_POMWithParallel.testcases.LoginTest"/>
+        </classes>
+    </test>
+    <test name="Run with Parallel Login" parallel="methods">
+        <parameter name="browser" value="edge"/>
+
+        <classes>
+            <class name="Bai27_PropertiesFile.testcases.LeadsTest"/>
+        </classes>
+    </test>
+</suite>

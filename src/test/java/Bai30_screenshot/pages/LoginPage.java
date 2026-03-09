@@ -1,4 +1,4 @@
-package Bai26_POMWithParallel.pages;
+package Bai30_screenshot.pages;
 
 import org.Helpers.PropertiesHelper;
 import org.keywords.WebUI;
@@ -33,7 +33,7 @@ public class LoginPage extends BasePage {
     }
 
     public void navigateToLoginAdminPage() {
-        WebUI.openURL("URL");
+        WebUI.openURL("url");
         WebUI.waitForPageLoaded();
     }
 

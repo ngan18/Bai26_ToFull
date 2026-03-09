@@ -141,13 +141,6 @@ public class WebUI {
         WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(PAGE_LOAD_TIMEOUT), Duration.ofMillis(500));
         JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
 
-        //Wait for Javascript to load
-//      ExpectedCondition<Boolean> jsLoad = new ExpectedCondition<Boolean>() {
-//         @Override
-//         public Boolean apply(WebDriver driver) {
-//            return js.executeScript("return document.readyState").toString().equals("complete");
-//         }
-//      };
         // wait for Javascript to loaded
         ExpectedCondition<Boolean> jsLoad = driver -> ((JavascriptExecutor) DriverManager.getDriver()).executeScript("return document.readyState").toString().equals("complete");
 
@@ -178,7 +171,7 @@ public class WebUI {
     public static boolean checkElementExist(By by) {
         List<WebElement> listElement = getWebElements(by);
 
-        if (listElement.size() > 0) {
+        if (!listElement.isEmpty()) {
             System.out.println("checkElementExist: " + true + " --- " + by);
             return true;
         } else {
@@ -250,6 +243,7 @@ public class WebUI {
         String url = PropertiesHelper.getValue(key);
         DriverManager.getDriver().get(url);
     }
+
 
     public static void clickElement(By by) {
         sleep(STEP_TIME);

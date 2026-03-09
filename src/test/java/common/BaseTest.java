@@ -2,14 +2,19 @@ package common;
 
 import org.Helpers.PropertiesHelper;
 import org.keywords.DriverManager;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.io.FileHandler;
+import org.testng.ITestResult;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
+import java.io.File;
 import java.time.Duration;
 
 public class BaseTest {
@@ -28,7 +33,7 @@ public class BaseTest {
 
         WebDriver driver;
 
-        if(PropertiesHelper.getValue("browser").isEmpty() || PropertiesHelper.getValue("browser") == null){
+        if( PropertiesHelper.getValue("browser") == null || PropertiesHelper.getValue("browser").isEmpty()){
             browserName = browserName;
         }else {
             browserName = PropertiesHelper.getValue("browser");
