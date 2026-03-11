@@ -61,7 +61,7 @@ public class WebUI {
             return element;
         } catch (Throwable error) {
             logConsole("FAILED. Timeout waiting for page load.");
-            Assert.fail("Timeout waiting for the element Visible. " + by.toString());
+            Assert.fail("Timeout waiting for the element Visible. " );
         }
         return element;
     }

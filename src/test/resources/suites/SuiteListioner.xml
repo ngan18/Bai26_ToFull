@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<!--suppress ALL -->
+<suite name="Suite Listioner" verbose="1">
+    <listeners>
+        <listener class-name="Listioner.testListioner"/>
+    </listeners>
+
+    <test name="Run Listioner" parallel="methods">
+        <classes>
+            <class name="Bai31_ITestListioner.testcases.LoginTest"/>
+            <class name="Bai31_ITestListioner.testcases.DashboardTest"/>
+
+        </classes>
+    </test>
+</suite>

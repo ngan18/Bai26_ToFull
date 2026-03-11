@@ -1,6 +1,9 @@
 package common;
 
+import Listioner.testListioner;
+import org.Helpers.CaptureHelper;
 import org.Helpers.PropertiesHelper;
+import org.Helpers.SystemHelper;
 import org.keywords.DriverManager;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -17,6 +20,7 @@ import org.testng.asserts.SoftAssert;
 import java.io.File;
 import java.time.Duration;
 
+//@Listeners(testListioner.class)
 public class BaseTest {
 
     public SoftAssert softAssert;
@@ -82,7 +86,10 @@ public class BaseTest {
 
 
     @AfterMethod(alwaysRun = true)
-    public void closeDriver() {
+    public void closeDriver(ITestResult result) {
+
+        CaptureHelper.stopRecord();
+
         if (DriverManager.getDriver() != null) {
             DriverManager.quitDriver();
             softAssert.assertAll();
