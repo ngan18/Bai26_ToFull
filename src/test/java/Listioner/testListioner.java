@@ -30,6 +30,8 @@ public class testListioner implements ITestListener {
         System.out.println("Test case " + result.getName() + " is passed.");
         System.out.println("==> Status: " + result.getStatus());
 
+        CaptureHelper.takeScreenshot(result.getName());
+
         CaptureHelper.stopRecord();
 
     }

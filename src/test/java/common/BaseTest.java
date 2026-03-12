@@ -86,7 +86,7 @@ public class BaseTest {
 
 
     @AfterMethod(alwaysRun = true)
-    public void closeDriver(ITestResult result) {
+    public void closeDriver() {
 
         CaptureHelper.stopRecord();
 

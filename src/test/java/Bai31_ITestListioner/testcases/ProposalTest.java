@@ -8,7 +8,7 @@ import common.BaseTest;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
-public class Proposal extends BaseTest {
+public class ProposalTest extends BaseTest {
 
     private WebDriver driver;
     private LoginPage loginPage;

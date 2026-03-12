@@ -48,7 +48,6 @@ public class LoginTest extends BaseTest {
         throw new SkipException("Skipping The Test Method ");
 //      loginPage = new LoginPage();
 //      loginPage.loginCRM("admin@example.com", "");
-//
 //      loginPage.verifyLoginFailureWithPasswordNull();
     }
 
