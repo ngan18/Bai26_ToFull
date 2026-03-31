@@ -1,6 +1,8 @@
 package Listioner;
 
 import org.Helpers.CaptureHelper;
+import org.Utils.LogUtils;
+import org.reports.AllureManager;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
@@ -8,27 +10,27 @@ import org.testng.ITestResult;
 public class testListioner implements ITestListener {
     @Override
     public void onStart(ITestContext result) {
-        System.out.println("Setup môi trường onStart: " + result.getStartDate());
+        LogUtils.info("Setup môi trường onStart: " + result.getStartDate());
 
     }
 
     @Override
     public void onFinish(ITestContext result) {
-        System.out.println("Kết thúc bộ test: " + result.getEndDate());
+        LogUtils.info("Kết thúc bộ test: " + result.getEndDate());
 
     }
 
     @Override
     public void onTestStart(ITestResult result) {
-        System.out.println("Bắt đầu chạy test case: " + result.getName());
+        LogUtils.info("Bắt đầu chạy test case: " + result.getName());
 
         CaptureHelper.startRecord(result.getName());
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        System.out.println("Test case " + result.getName() + " is passed.");
-        System.out.println("==> Status: " + result.getStatus());
+        LogUtils.info("Test case " + result.getName() + " is passed.");
+        LogUtils.info("==> Status: " + result.getStatus());
 
         CaptureHelper.takeScreenshot(result.getName());
 
@@ -38,18 +40,22 @@ public class testListioner implements ITestListener {
 
     @Override
     public void onTestFailure(ITestResult result) {
-        System.out.println("Test case " + result.getName() + " is failed.");
-        System.out.println("==> Status: " + result.getStatus());
+        LogUtils.error("Test case " + result.getName() + " is failed.");
+        LogUtils.error("==> Status: " + result.getStatus());
 
         CaptureHelper.takeScreenshot(result.getName());
+
+        //Allure Report
+        AllureManager.saveTextLog(result.getName() + " is failed.");
+        AllureManager.saveScreenshotPNG();
 
         CaptureHelper.stopRecord();
     }
 
     @Override
     public void onTestSkipped(ITestResult result) {
-        System.out.println("Test case " + result.getName() + " is skipped.");
-        System.out.println("==> Status: " + result.getStatus());
+        LogUtils.info("Test case " + result.getName() + " is skipped.");
+        LogUtils.info("==> Status: " + result.getStatus());
 
         CaptureHelper.stopRecord();
 

@@ -1,5 +1,6 @@
 package org.Helpers;
 
+import org.Utils.LogUtils;
 import org.keywords.DriverManager;
 import org.monte.screenrecorder.ScreenRecorder;
 import org.openqa.selenium.OutputType;
@@ -13,7 +14,7 @@ import java.lang.reflect.Method;
 import org.monte.media.Format;
 import org.monte.media.Registry;
 import org.monte.media.math.Rational;
-import org.monte.screenrecorder.ScreenRecorder;
+
 import java.awt.*;
 import static org.monte.media.FormatKeys.*;
 import static org.monte.media.VideoFormatKeys.*;
@@ -66,7 +67,9 @@ public class CaptureHelper extends ScreenRecorder {
     // Stop record video
     public static void stopRecord() {
         try {
-            screenRecorder.stop();
+            if (screenRecorder != null) { // thêm dòng này
+                screenRecorder.stop();
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -89,10 +92,10 @@ public class CaptureHelper extends ScreenRecorder {
             }
             // Chổ này đặt tên thì truyền biến "screenName" gán cho tên File chụp màn hình
             FileHandler.copy(source, new File(SystemHelper.getCurrentDir() + PropertiesHelper.getValue("SCREENSHOT_PATH") + File.separator + screenshotName + "_" + dateFormat.format(new Date()) + ".png"));
-            System.out.println("Screenshot taken: " + screenshotName);
-            System.out.println("Screenshot taken current URL: " + DriverManager.getDriver().getCurrentUrl());
+            LogUtils.info("Screenshot taken: " + screenshotName);
+            LogUtils.info("Screenshot taken current URL: " + DriverManager.getDriver().getCurrentUrl());
         } catch (Exception e) {
-            System.out.println("Exception while taking screenshot: " + e.getMessage());
+            LogUtils.error("Exception while taking screenshot: " + e.getMessage());
         }
     }
 
@@ -132,7 +135,7 @@ public class CaptureHelper extends ScreenRecorder {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Screenshot success !!");
+        LogUtils.info("Screenshot success !!");
     }
 
 }

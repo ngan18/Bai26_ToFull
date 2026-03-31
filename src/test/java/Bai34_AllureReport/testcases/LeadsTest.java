@@ -1,0 +1,40 @@
+package Bai34_AllureReport.testcases;
+
+import Bai34_AllureReport.pages.CustomerPage;
+import Bai34_AllureReport.pages.DashboardPage;
+import Bai34_AllureReport.pages.LoginPage;
+import common.BaseTest;
+import org.Helpers.PropertiesHelper;
+import org.keywords.WebUI;
+import org.openqa.selenium.By;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+public class LeadsTest extends BaseTest {
+
+        private LoginPage loginPage;
+        private DashboardPage dashboardPage;
+        private CustomerPage customersPage;
+
+        @Test
+        public void testLeadsOverview() {
+            loginPage = new LoginPage();
+            //noinspection TestFailedLine
+            loginPage.loginCRM();
+            WebUI.clickElement(By.xpath("//span[@class='menu-text'][normalize-space()='Leads']"));
+            WebUI.waitForPageLoaded();
+            WebUI.clickElement(By.xpath("//i[@class='fa fa-bar-chart']"));
+            //WebUI.waitForPageLoaded();
+            //WebUI.checkElementExist(By.xpath("//span[normalize-space()='Active']/preceding-sibling::span"), 5, 1000);
+            String labelActiveValue = WebUI.getElementText(By.xpath("//span[normalize-space()='Active']/preceding-sibling::span"));
+            Assert.assertEquals(labelActiveValue, "13", "Active leads count does not match expected value.");
+
+            String labelCutsomerValue = WebUI.getElementText(By.xpath("//span[normalize-space()='Customer']/preceding-sibling::span"));
+            Assert.assertEquals(labelCutsomerValue, "2", "Customer leads count does not match expected value.");
+
+            //Set data to properties file
+            PropertiesHelper.setValue("leads_active", labelActiveValue);
+            PropertiesHelper.setValue("leads_customer", labelCutsomerValue);
+
+        }
+}

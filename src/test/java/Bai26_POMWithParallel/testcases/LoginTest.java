@@ -1,6 +1,7 @@
 package Bai26_POMWithParallel.testcases;
 
 
+import Bai26_POMWithParallel.pages.DashboardPage;
 import Bai26_POMWithParallel.pages.LoginPage;
 import common.BaseTest;
 import org.testng.annotations.Test;
@@ -10,6 +11,7 @@ public class LoginTest extends BaseTest {
 
     //khai báo đối tượng trang login
     private LoginPage loginPage;
+    private DashboardPage dashboardPage;
     //cần page nào thì khai báo ra hết đối tượng page đó
 
     @Test(priority = 1)
@@ -18,6 +20,7 @@ public class LoginTest extends BaseTest {
 
         loginPage.loginCRM("admin@example.com", "123456");
         loginPage.verifyLoginSuccess();
+        dashboardPage=loginPage.loginCRM();
     }
 
     @Test(priority = 2)

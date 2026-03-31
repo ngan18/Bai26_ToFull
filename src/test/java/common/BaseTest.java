@@ -20,7 +20,7 @@ import org.testng.asserts.SoftAssert;
 import java.io.File;
 import java.time.Duration;
 
-//@Listeners(testListioner.class)
+@Listeners(testListioner.class)
 public class BaseTest {
 
     public SoftAssert softAssert;

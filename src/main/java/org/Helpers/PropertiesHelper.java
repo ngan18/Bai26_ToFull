@@ -1,5 +1,7 @@
 package org.Helpers;
 
+import org.Utils.LogUtils;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -76,7 +78,7 @@ public class PropertiesHelper {
             // Lấy giá trị từ file đã Set
             value = properties.getProperty(key);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LogUtils.error(e.getMessage());
         }
         return value;
     }
@@ -92,12 +94,12 @@ public class PropertiesHelper {
             }
             //Ghi vào cùng file Prop với file lấy ra
             fileOut = new FileOutputStream(linkFile);
-            System.out.println(linkFile);
+            LogUtils.info(linkFile);
             properties.setProperty(key, keyValue);
             properties.store(fileOut, null);
             fileOut.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LogUtils.error(e.getMessage());
         }
     }
 

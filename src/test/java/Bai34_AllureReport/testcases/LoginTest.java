@@ -1,7 +1,7 @@
-package Bai31_ITestListioner.testcases;
+package Bai34_AllureReport.testcases;
 
 
-import Bai31_ITestListioner.pages.LoginPage;
+import Bai34_AllureReport.pages.LoginPage;
 import common.BaseTest;
 import org.testng.SkipException;
 import org.testng.annotations.Test;
@@ -14,7 +14,6 @@ public class LoginTest extends BaseTest {
     @Test(priority = 1)
     public void testLoginSuccess() {
         loginPage = new LoginPage();
-
         loginPage.loginCRM("admin@example.com", "123456");
         loginPage.verifyLoginSuccess();
     }
@@ -48,7 +47,7 @@ public class LoginTest extends BaseTest {
         throw new SkipException("Skipping The Test Method ");
 //      loginPage = new LoginPage();
 //      loginPage.loginCRM("admin@example.com", "");
+//
 //      loginPage.verifyLoginFailureWithPasswordNull();
     }
-
 }

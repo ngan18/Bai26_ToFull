@@ -10,6 +10,7 @@
         <classes>
             <class name="Bai31_ITestListioner.testcases.LoginTest"/>
             <class name="Bai31_ITestListioner.testcases.DashboardTest"/>
+            <class name="Bai31_ITestListioner.testcases.CustomerTest"/>
 
         </classes>
     </test>

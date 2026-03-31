@@ -36,7 +36,7 @@ public class demoDataProvider{
     public Object[][] data_provider_login_excel_hastable() {
         ExcelHelper excelHelper = new ExcelHelper();
         Object[][] data = excelHelper.getDataHashTable(SystemHelper.getCurrentDir() + "src/test/resources/DataCRM/DataCRM.xlsx",
-                "Login",1,2);
+                "Login",1,3);
         System.out.println("Login Data from Excel use Hashtable: " + data);
         return data;
     }

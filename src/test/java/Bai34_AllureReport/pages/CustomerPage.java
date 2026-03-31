@@ -1,4 +1,4 @@
-package Bai31_ITestListioner.pages;
+package Bai34_AllureReport.pages;
 
 import org.Utils.LogUtils;
 import org.keywords.WebUI;

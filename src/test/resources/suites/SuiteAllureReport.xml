@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<!--suppress ALL -->
+<suite name="Suite Allure Report" verbose="1">
+
+    <test name="Allure Report" parallel="methods">
+        <classes>
+            <class name="Bai34_AllureReport.testcases.LoginTest"/>
+         <!--   <class name="Bai31_ITestListioner.testcases.DashboardTest"/> -->
+
+
+        </classes>
+    </test>
+</suite>

@@ -24,14 +24,14 @@ public class demoDataProviderFromExcel extends BaseTest {
         loginPage.verifyLoginSuccess();
     }
 
-    // Sử dụngdemoDataProvider với các dòng cụ thể (1, 3, 4)
+    // Sử dụng demo DataProvider với các dòng cụ thể (1, 3, 4)
     @Test(dataProvider = "data_provider_login_excel_specific_rows", dataProviderClass = demoDataProvider.class)
     public void testLoginWithSpecificRows(String email, String password) {
         System.out.println("Email: " + email);
         System.out.println("Password: " + password);
     }
 
-    // Sử dụngdemoDataProvider với các dòng cụ thể dạng Hashtable
+    // Sử dụng demo DataProvider với các dòng cụ thể dạng Hashtable
 // khi có nhiều trường vd: name, mail,..., dùng hastable gọi trường mong muốn,
 // thay vì tạo 10 tham số chứa nó
     @Test(dataProvider = "data_provider_login_excel_specific_rows_hashtable", dataProviderClass = demoDataProvider.class)

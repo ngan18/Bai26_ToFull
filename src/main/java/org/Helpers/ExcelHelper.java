@@ -1,5 +1,6 @@
 package org.Helpers;
 
+import org.Utils.LogUtils;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -28,7 +29,7 @@ public class ExcelHelper {
             File f = new File(ExcelPath);
 
             if (!f.exists()) {
-                System.out.println("File doesn't exist.");
+                LogUtils.info("File doesn't exist.");
             }
 
             fis = new FileInputStream(ExcelPath);
@@ -47,7 +48,7 @@ public class ExcelHelper {
             });
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LogUtils.error(e.getMessage());
         }
     }
 
@@ -81,7 +82,7 @@ public class ExcelHelper {
 
     //Gọi ra hàm này nè
     public String getCellData(String columnName, int rowIndex) {
-        //System.out.println(columns.get(columnName));
+        //LogUtils.info(columns.get(columnName));
         if (columns.get(columnName) == null) {
             try {
                 throw new Exception("Column name doesn't exist.");
@@ -94,6 +95,7 @@ public class ExcelHelper {
 
     //set by column index
     public void setCellData(String text, int columnIndex, int rowIndex) {
+        //noinspection CatchMayIgnoreException
         try {
             row = sheet.getRow(rowIndex);
             if (row == null) {
@@ -118,6 +120,7 @@ public class ExcelHelper {
             fileOut.flush();
             fileOut.close();
         } catch (Exception e) {
+            //noinspection ResultOfMethodCallIgnored
             e.getMessage();
         }
     }
@@ -147,7 +150,7 @@ public class ExcelHelper {
             workbook.write(fileOut);
             fileOut.flush();
             fileOut.close();
-            System.out.println("Set cell data successfully!");
+            LogUtils.info("Set cell data successfully!");
         } catch (Exception e) {
             e.getMessage();
         }
@@ -173,7 +176,7 @@ public class ExcelHelper {
             int noOfRows = sh.getPhysicalNumberOfRows();
             int noOfCols = row.getLastCellNum();
 
-            System.out.println(noOfRows + " - " + noOfCols);
+            LogUtils.info(noOfRows + " - " + noOfCols);
 
             Cell cell;
             data = new Object[noOfRows - 1][noOfCols];
@@ -186,7 +189,7 @@ public class ExcelHelper {
 
                     switch (cell.getCellType()) {
                         case STRING:
-                            data[i - 1][j] = cell.getStringCellValue();
+                            data[1 - i][j] = cell.getStringCellValue();
                             break;
                         case NUMERIC:
                             data[i - 1][j] = String.valueOf(cell.getNumericCellValue());
@@ -201,7 +204,7 @@ public class ExcelHelper {
                 }
             }
         } catch (Exception e) {
-            System.out.println("The exception is:" + e.getMessage());
+            LogUtils.error("The exception is:" + e.getMessage());
             throw new RuntimeException(e);
         }
         return data;
@@ -213,7 +216,7 @@ public class ExcelHelper {
             row = sheet.getRow(0);
             return row.getLastCellNum();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LogUtils.info(e.getMessage());
             throw (e);
         }
     }
@@ -229,24 +232,19 @@ public class ExcelHelper {
     }
 
     public Object[][] getDataHashTable(String excelPath, String sheetName, int startRow, int endRow) {
-        System.out.println("Excel Path: " + excelPath);
+        LogUtils.info("Excel Path: " + excelPath);
         Object[][] data = null;
 
         try {
             File f = new File(excelPath);
             if (!f.exists()) {
                 try {
-                    System.out.println("File Excel path not found.");
+                    LogUtils.info("File Excel path not found.");
                     throw new IOException("File Excel path not found.");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-
-
-
-
-
             fis = new FileInputStream(excelPath);
 
             workbook = new XSSFWorkbook(fis);
@@ -256,8 +254,8 @@ public class ExcelHelper {
             int rows = getLastRowNum();
             int columns = getColumns();
 
-            System.out.println("Row: " + rows + " - Column: " + columns);
-            System.out.println("StartRow: " + startRow + " - EndRow: " + endRow);
+            LogUtils.info("Row: " + rows + " - Column: " + columns);
+            LogUtils.info("StartRow: " + startRow + " - EndRow: " + endRow);
 
             data = new Object[(endRow - startRow) + 1][1];
             Hashtable<String, String> table = null;
@@ -278,9 +276,9 @@ public class ExcelHelper {
 
     // Get data from specific rows
     public Object[][] getDataFromSpecificRows(String excelPath, String sheetName, int[] rowNumbers) {
-        System.out.println("Excel File: " + excelPath);
-        System.out.println("Sheet Name: " + sheetName);
-        System.out.println("Reading data from specific rows: " + Arrays.toString(rowNumbers));
+        LogUtils.info("Excel File: " + excelPath);
+        LogUtils.info("Sheet Name: " + sheetName);
+        LogUtils.info("Reading data from specific rows: " + Arrays.toString(rowNumbers));
 
         Object[][] data = null;
 
@@ -288,7 +286,7 @@ public class ExcelHelper {
             File f = new File(excelPath);
 
             if (!f.exists()) {
-                System.out.println("File Excel path not found.");
+                LogUtils.info("File Excel path not found.");
                 throw new FileNotFoundException("File Excel path not found.");
             }
 
@@ -297,12 +295,12 @@ public class ExcelHelper {
             sheet = workbook.getSheet(sheetName);
 
             if (sheet == null) {
-                System.out.println("Sheet name not found.");
+                LogUtils.info("Sheet name not found.");
                 throw new RuntimeException("Sheet name not found.");
             }
 
             int columns = getColumns();
-            System.out.println("Column count: " + columns);
+            LogUtils.info("Column count: " + columns);
 
             // Khởi tạo mảng data với kích thước bằng số lượng dòng được chỉ định
             data = new Object[rowNumbers.length][columns];
@@ -312,7 +310,7 @@ public class ExcelHelper {
                 int rowNum = rowNumbers[i];
                 // Kiểm tra xem dòng có tồn tại không
                 if (rowNum > sheet.getLastRowNum()) {
-                    System.out.println("WARNING: Row " + rowNum + " does not exist in the sheet.");
+                    LogUtils.info("WARNING: Row " + rowNum + " does not exist in the sheet.");
                     // Gán giá trị rỗng cho dòng không tồn tại
                     for (int j = 0; j < columns; j++) {
                         data[i][j] = "";
@@ -330,7 +328,7 @@ public class ExcelHelper {
             fis.close();
 
         } catch (Exception e) {
-            System.out.println("Exception in getDataFromSpecificRows: " + e.getMessage());
+            LogUtils.error("Exception in getDataFromSpecificRows: " + e.getMessage());
             e.printStackTrace();
         }
 
@@ -339,9 +337,9 @@ public class ExcelHelper {
 
     // Get data from specific rows with Hashtable
     public Object[][] getDataHashTableFromSpecificRows(String excelPath, String sheetName, int[] rowNumbers) {
-        System.out.println("Excel File: " + excelPath);
-        System.out.println("Sheet Name: " + sheetName);
-        System.out.println("Reading data from specific rows: " + Arrays.toString(rowNumbers));
+        LogUtils.info("Excel File: " + excelPath);
+        LogUtils.info("Sheet Name: " + sheetName);
+        LogUtils.info("Reading data from specific rows: " + Arrays.toString(rowNumbers));
 
         Object[][] data = null;
 
@@ -349,7 +347,7 @@ public class ExcelHelper {
             File f = new File(excelPath);
 
             if (!f.exists()) {
-                System.out.println("File Excel path not found.");
+                LogUtils.info("File Excel path not found.");
                 throw new FileNotFoundException("File Excel path not found.");
             }
 
@@ -358,7 +356,7 @@ public class ExcelHelper {
             sheet = workbook.getSheet(sheetName);
 
             if (sheet == null) {
-                System.out.println("Sheet name not found.");
+                LogUtils.info("Sheet name not found.");
                 throw new RuntimeException("Sheet name not found.");
             }
 
@@ -371,7 +369,7 @@ public class ExcelHelper {
                 int rowNum = rowNumbers[i];
                 // Kiểm tra xem dòng có tồn tại không
                 if (rowNum > sheet.getLastRowNum()) {
-                    System.out.println("WARNING: Row " + rowNum + " does not exist in the sheet.");
+                    LogUtils.info("WARNING: Row " + rowNum + " does not exist in the sheet.");
                     data[i][0] = new Hashtable<String, String>();
                     continue;
                 }
@@ -393,7 +391,8 @@ public class ExcelHelper {
             fis.close();
 
         } catch (Exception e) {
-            System.out.println("Exception in getDataHashTableFromSpecificRows: " + e.getMessage());
+            LogUtils.error("Exception in getDataHashTableFromSpecificRows: " + e.getMessage());
+            //noinspection CallToPrintStackTrace
             e.printStackTrace();
         }
 
