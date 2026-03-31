@@ -11,7 +11,9 @@ Project được xây dựng nhằm thực hành các kỹ thuật testing phổ
 - Screenshot khi test fail
 - Listener
 
+```
 ## 🧱 Cấu trúc project
+
 Bai26_ToFull
 │── src
 │ ├── main
@@ -38,10 +40,10 @@ Bai26_ToFull
 │ │ ├── configs
 │ │ │ └── config.properties
 │ │ └── DataCRM
-│ │
+│
 │── pom.xml
 │── README.md
-
+```
 
 ---
 
