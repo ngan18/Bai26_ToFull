@@ -30,7 +30,7 @@ public class LoginPage extends BasePage {
     }
 
     public void navigateToLoginAdminPage() {
-        WebUI.openURL("url");
+        WebUI.openURL(PropertiesHelper.getValue("url"));
         WebUI.waitForPageLoaded();
     }
 

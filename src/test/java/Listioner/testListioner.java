@@ -46,8 +46,8 @@ public class testListioner implements ITestListener {
         CaptureHelper.takeScreenshot(result.getName());
 
         //Allure Report
-        AllureManager.saveTextLog(result.getName() + " is failed.");
-        AllureManager.saveScreenshotPNG();
+//        AllureManager.saveTextLog(result.getName() + " is failed.");
+//        AllureManager.saveScreenshotPNG();
 
         CaptureHelper.stopRecord();
     }

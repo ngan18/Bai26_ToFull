@@ -1,13 +1,21 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <!--suppress ALL -->
-<suite name="Suite Allure Report" verbose="1">
+<suite name="Suite Allure Report" verbose="1" parallel="false">
 
-    <test name="Allure Report" parallel="methods">
+    <test name="Allure Report 1" >
         <classes>
             <class name="Bai34_AllureReport.testcases.LoginTest"/>
-         <!--   <class name="Bai31_ITestListioner.testcases.DashboardTest"/> -->
+         <!--   <class name="Bai34_AllureReport.testcases.DashboardTest"/> -->
 
+
+        </classes>
+    </test>
+    <test name="Allure Report 2" >
+        <classes>
+            <class name="Bai34_AllureReport.testcases.DashboardTest"/>
+
+            <class name="Bai34_AllureReport.testcases.LeadsTest"/>
 
         </classes>
     </test>

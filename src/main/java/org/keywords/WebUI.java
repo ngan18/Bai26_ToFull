@@ -243,56 +243,90 @@ public class WebUI {
         }
     }
 
-    public static void openURL(String key) {
-
-        String url = PropertiesHelper.getValue(key);
-
+    @Step("Open URL {0}")
+    public static void openURL(String url) {
         DriverManager.getDriver().get(url);
+        sleep(STEP_TIME);
         LogUtils.info("Open URL:  " + url);
+
+        if (PropertiesHelper.getValue("SCREENSHOT_ALL_STEP").equals("true")) {
+            //ExtentTestManager.addScreenshot("openURL_" + SystemHelper.getDateTimeNowFormat());
+            AllureManager.saveScreenshotPNG();
+        }
+
     }
-
-
-
 
     @Step("Click on element {0}")
     public static void clickElement(By by) {
         sleep(STEP_TIME);
         waitForElementToBeClickable(by).click();
         LogUtils.info("Click on element " + by);
+        if (PropertiesHelper.getValue("SCREENSHOT_ALL_STEP").equals("true")) {
+            //ExtentTestManager.addScreenshot("clickElement_" + SystemHelper.getDateTimeNowFormat());
+            AllureManager.saveScreenshotPNG();
+        }
     }
 
+    @Step("Click on element {0} with timeout {1} seconds")
     public static void clickElement(By by, int seconds) {
         sleep(STEP_TIME);
         waitForElementToBeClickable(by, seconds).click();
         LogUtils.info("Click on element " + by);
+        if (PropertiesHelper.getValue("SCREENSHOT_ALL_STEP").equals("true")) {
+           // ExtentTestManager.addScreenshot("clickElement_" + SystemHelper.getDateTimeNowFormat());
+            AllureManager.saveScreenshotPNG();
+        }
     }
 
+    @Step("Set text {1} on element {0}")
     public static void setText(By by, String text) {
         sleep(STEP_TIME);
         waitForElementVisible(by).sendKeys(text);
         LogUtils.info("Set text " + text + " on element " + by);
+        if (PropertiesHelper.getValue("SCREENSHOT_ALL_STEP").equals("true")) {
+           // ExtentTestManager.addScreenshot("setText_" + SystemHelper.getDateTimeNowFormat());
+            AllureManager.saveScreenshotPNG();
+        }
     }
 
+    @Step("Set text {1} on element {0} with timeout {2} seconds")
     public static void setText(By by, String text, int seconds) {
         sleep(STEP_TIME);
         waitForElementVisible(by, seconds).sendKeys(text);
         LogUtils.info("Set text " + text + " on element " + by);
+        if (PropertiesHelper.getValue("SCREENSHOT_ALL_STEP").equals("true")) {
+          //  ExtentTestManager.addScreenshot("setText_" + SystemHelper.getDateTimeNowFormat());
+            AllureManager.saveScreenshotPNG();
+        }
     }
 
+    @Step("Get text of element {0}")
     public static String getElementText(By by) {
         waitForElementVisible(by);
         sleep(STEP_TIME);
         LogUtils.info("Get text of element " + by);
         String text = getWebElement(by).getText();
         LogUtils.info("==> TEXT: " + text);
+         AllureManager.saveTextLog("==> TEXT: " + text);
+        if (PropertiesHelper.getValue("SCREENSHOT_ALL_STEP").equals("true")) {
+            //ExtentTestManager.addScreenshot("getElementText_" + SystemHelper.getDateTimeNowFormat());
+            AllureManager.saveScreenshotPNG();
+        }
         return text; //Trả về một giá trị kiểu String
     }
 
+    @Step("Get attribute {1} of element {0}")
     public static String getElementAttribute(By by, String attributeName) {
         waitForElementVisible(by);
         LogUtils.info("Get attribute of element " + by);
         String value = getWebElement(by).getAttribute(attributeName);
         LogUtils.info("==> Attribute value: " + value);
+        AllureManager.saveTextLog("==> Attribute value: " + value);
+
+        if (PropertiesHelper.getValue("SCREENSHOT_ALL_STEP").equals("true")) {
+            //ExtentTestManager.addScreenshot("getElementAttribute_" + SystemHelper.getDateTimeNowFormat());
+            AllureManager.saveScreenshotPNG();
+        }
         return value;
     }
 
