@@ -14,7 +14,7 @@ public class LoginTest extends BaseTest {
     @Test(priority = 1)
     public void testLoginSuccess() {
         loginPage = new LoginPage();
-        loginPage.loginCRM("admin@example.com", "123456");
+        loginPage.loginCRM("admin", "123456");
         loginPage.verifyLoginSuccess();
     }
 

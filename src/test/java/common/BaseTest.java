@@ -1,26 +1,20 @@
 package common;
 
-import Listioner.testListioner;
+import listener.testListener;
 import org.Helpers.CaptureHelper;
 import org.Helpers.PropertiesHelper;
-import org.Helpers.SystemHelper;
 import org.keywords.DriverManager;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.io.FileHandler;
-import org.testng.ITestResult;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
-import java.io.File;
 import java.time.Duration;
 
-@Listeners(testListioner.class)
+@Listeners(testListener.class)
 public class BaseTest {
 
     public SoftAssert softAssert;

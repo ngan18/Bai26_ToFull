@@ -1,13 +1,13 @@
-package Listioner;
+package listener;
 
 import org.Helpers.CaptureHelper;
+import org.Helpers.PropertiesHelper;
 import org.Utils.LogUtils;
-import org.reports.AllureManager;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
-public class testListioner implements ITestListener {
+public class testListener implements ITestListener {
     @Override
     public void onStart(ITestContext result) {
         LogUtils.info("Setup môi trường onStart: " + result.getStartDate());
@@ -24,7 +24,10 @@ public class testListioner implements ITestListener {
     public void onTestStart(ITestResult result) {
         LogUtils.info("Bắt đầu chạy test case: " + result.getName());
 
-        CaptureHelper.startRecord(result.getName());
+        if (PropertiesHelper.getValue("VIDEO_RECORD").equals("true")) {
+
+            CaptureHelper.startRecord(result.getName());
+        }
     }
 
     @Override
@@ -34,8 +37,10 @@ public class testListioner implements ITestListener {
 
         CaptureHelper.takeScreenshot(result.getName());
 
-        CaptureHelper.stopRecord();
+        if (PropertiesHelper.getValue("VIDEO_RECORD").equals("true")) {
 
+            CaptureHelper.stopRecord();
+        }
     }
 
     @Override
@@ -49,15 +54,21 @@ public class testListioner implements ITestListener {
 //        AllureManager.saveTextLog(result.getName() + " is failed.");
 //        AllureManager.saveScreenshotPNG();
 
-        CaptureHelper.stopRecord();
+        if (PropertiesHelper.getValue("VIDEO_RECORD").equals("true")) {
+
+            CaptureHelper.stopRecord();
+        }
     }
+
 
     @Override
     public void onTestSkipped(ITestResult result) {
         LogUtils.info("Test case " + result.getName() + " is skipped.");
         LogUtils.info("==> Status: " + result.getStatus());
 
-        CaptureHelper.stopRecord();
+        if (PropertiesHelper.getValue("VIDEO_RECORD").equals("true")) {
 
+            CaptureHelper.stopRecord();
+        }
     }
 }

@@ -108,6 +108,7 @@ public class CaptureHelper extends ScreenRecorder {
 // Kiểm tra folder tồn tại. Nếu không thì tạo mới folder theo đường dẫn
         File theDir = new File("./screenshots/");
         if (!theDir.exists()) {
+            //noinspection ResultOfMethodCallIgnored
             theDir.mkdirs();
         }
 //Lưu file ảnh với tên cụ thể vào đường dẫn
